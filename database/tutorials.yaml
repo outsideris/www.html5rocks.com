@@ -1,3 +1,17 @@
+title: "requestAutocomplete - take my money, not my time"
+url: /tutorials/forms/requestautocomplete/
+author_id: jakearchibald
+publication_date: 2013-10-03
+description: "Optimizing website payments using the requestAutocomplete API"
+browser_support:
+- chrome
+tags:
+- forms
+- type:article
+- class:nuts_and_bolts
+
+---
+
 title: "Techniques for Streaming Multimedia in HTML5"
 url: /tutorials/streaming/multimedia/
 author_id: ericbidelman
