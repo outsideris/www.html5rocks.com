@@ -1,8 +1,8 @@
 #
 #	`make messages`
 #
-LANGUAGES=en de fr ja pt ru zh es
-MAC_DJANGO_ROOT=/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/django_1_2
+LANGUAGES=en de fr ja pt ru zh es ko
+MAC_DJANGO_ROOT=/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/django-1.2
 LINUX_DJANGO_ROOT=/usr/local/google/google_appengine/lib/django_1_2
 IMPORT_ROOT=~/git/html5/google3/blaze-genfiles/devrel/html5rocks/po_files/server/tc_dump
 ifeq "$(shell uname)" "Darwin"
@@ -21,7 +21,7 @@ Run `make messages` to regenerate the *.po files in `conf/locale/*`, and
 translate strings.
 
 We're currently generating message files for English, German, Japanese,
-Portuguese, Russian, Simplified Chinese, and Spanish. For additional
+Portuguese, Russian, Simplified Chinese, Korean, and Spanish. For additional
 languages, edit the `LANGUAGES` variable in the Makefile.
 
 endef
