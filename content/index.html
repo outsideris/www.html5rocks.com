@@ -1,4 +1,4 @@
-{% extends "home-base.html" %}
+{% extends "v2-base.html" %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 
@@ -7,11 +7,13 @@
 {% block body %}
 
 <section class="masthead">
-  <a href="http://www.html5rocks.com/en/tutorials/speed/animated-gifs/?utm_source=html5rocks&utm_medium=banner&utm_campaign=animated-gifs">
+  <a href="/en/tutorials/webrtc/infrastructure/?utm_source=html5rocks&utm_medium=banner&utm_campaign=webrtc-infrastructure">
     <div class="container">
       <div id="image"></div>
-      <h2>Are animated GIFs slowing down your app?</h2>
-      <h3>We'll show you how to find and fix it.</h3>
+      <h2>
+        <span class="small">Get your servers up and running for</span>
+        <span class="large">WebRTC</span>
+      </h2>
     </div>
   </a>
 </section>
@@ -20,7 +22,7 @@
   <div class="container">
     <form action="/{{LANGUAGE_CODE}}/search" role="search">
       <legend>Search</legend>
-      <label for="search">{% trans "Search" %}:</label>
+      <label for="q">{% trans "Search" %}:</label>
       <input type="search" name="q" id="q" autocomplete="off" placeholder="{% trans "Search" %}" />
       <input type="submit" id="search-button" value="{% trans "Search" %}">
     </form>
@@ -101,6 +103,12 @@
   <div class="clear"></div>
 </section>
 
-<div class="padder"></div>
+<div class="padder google-project">
+  <div class="container">
+  {% blocktrans %}
+    <strong>HTML5 Rocks</strong> is a <strong><img src="/static/images/google_logo_small.png" alt="Google logo" title="Google"></strong> project.
+  {% endblocktrans %}
+  </div>
+</div>
 
 {% endblock %}

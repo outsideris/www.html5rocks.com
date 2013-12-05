@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SNU Cafeteria</title>
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1"/>
+        <style>
+			#content {
+				padding: 0 !important;
+			}
+		</style>
+        <script type="text/javascript">
+			$(document).on('pageshow', '#home',function(e,data){   
+				$('#content').height(getRealContentHeight());
+				// This is the minimum zoom level that we'll allow
+				var minZoomLevel = 15;
+				
+				var map = new google.maps.Map(document.getElementById('map_canvas'), {
+					zoom: minZoomLevel,
+					center: new google.maps.LatLng(37.459258, 126.95333),
+					mapTypeId: google.maps.MapTypeId.ROADMAP
+				});
+			});
+			
+			function getRealContentHeight() {
+				var header = $.mobile.activePage.find("div[data-role='header']:visible");
+				var footer = $.mobile.activePage.find("div[data-role='footer']:visible");
+				var content = $.mobile.activePage.find("div[data-role='content']:visible:visible");
+				var viewport_height = $(window).height();
+				
+				var content_height = viewport_height - header.outerHeight(); // - footer.outerHeight();
+				if((content.outerHeight() - header.outerHeight() - footer.outerHeight()) <= viewport_height) {
+					content_height -= (content.outerHeight() - content.height());
+				} 
+				return content_height;
+			}
+		</script>
+    </head>
+    <body>
+    	<!-- Home -->
+        <div data-role="page" id="home">
+        	<!-- Options panel -->
+        	<div data-role="panel" id="optionspanel">
+                <ul data-role="listview">
+                    <li data-icon="info"><a href="#searchpage">Cafeterias</a></li>
+                    <li data-icon="star"><a href="#">Menus</a></li>
+                </ul>
+            </div><!-- /panel -->
+            <div data-theme="a" data-role="header">
+            	<a data-role="button" href="#optionspanel" data-icon="grid" data-iconpos="left" class="ui-btn-left">Options</a>
+                <a data-role="button" href="#searchpage" data-icon="search" data-iconpos="right" class="ui-btn-right">Search</a>
+                <h3>SNU Cafeteria</h3>
+            </div>
+            <div data-role="content" id="content">
+            	<div id="map_canvas" style="height:100%"></div>
+            </div>
+        </div>
+        <div data-role="page" id="searchpage">
+        	<ul data-role="listview" data-filter="true" data-filter-placeholder="Search cafeterias..." data-inset="true">
+                <li><a href="#">Cafeteria No.1 Bldg. C-63, Student Center</a></li>
+                <li><a href="#">Cafeteria No.3 Bldg. D-75-1</a></li>
+                <li><a href="#">Dorm Cafeteria Bldg. J-919</a></li>
+                <li><a href="#">Engineering & Research Center 2 Cafeteria Bldg. F-302</a></li>
+                <li><a href="#">Cafeteria Dongwon Bldg I-113</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
