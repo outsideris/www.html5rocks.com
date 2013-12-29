@@ -34,7 +34,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="alternate" type="application/rss+xml" title="{% trans "HTML5 Rocks RSS" %}" href="http://feeds.feedburner.com/html5rocks">
 
-  <meta itemprop="name" content="{% trans "HTML5 Rocks" %}">
+  <meta itemprop="name" content="{% if tut.title %}{{tut.title|safe}}{% endif %}{% if tut.subtitle %}: {{tut.subtitle|safe}}{% endif %} - {% trans "HTML5 Rocks" %}">
   <meta itemprop="description" content="{% if tut.description %}{{tut.description|safe}}{% else %}{{description|safe}}{% endif %}">
   {% block share_image %}
   <meta itemprop="image" content="{{host}}/static/images/html5rocks-logo-wings.png">
@@ -61,7 +61,21 @@
   {% endif %}
   <link rel="publisher" href="https://plus.google.com/111395306401981598462">
 
-  <link rel="stylesheet" media="all" href="/static/css/{{css_file}}.{% if prod %}min.{% endif %}css">
+  {% if localizations %}
+  {% for alt_locale in localizations %}
+  <link rel="alternate" hreflang="{{alt_locale.loc}}" href="{{host}}{{alt_locale.path}}">
+  {% endfor %}
+  {% endif %}
+
+  {% if css_file %}
+    {% if prod %}
+    <link rel="stylesheet" media="all" href="/static/css/{{css_file}}.min.css?20131111">
+    {% else %}
+    <link rel="stylesheet" media="all" href="/static/css/v2-base.css">
+    <link rel="stylesheet" media="all" href="/static/css/v2-article.css">
+    <link rel="stylesheet" media="all" href="/static/css/v2-tutorials.css">
+    {% endif %}
+  {% endif %}
 
   <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,800{%if page_class == 'article tutorial' %}|Source+Code+Pro{% endif %}" rel="stylesheet">
 
@@ -90,7 +104,7 @@
 
     <nav id="sitenav">
       <ul>
-        {% if tut %}
+        {% if include_home_link %}
         <li id="home_menu"><a href="/{{LANGUAGE_CODE}}/" class="home">{% trans "Home" %}</a></li>
         {% endif %}
         <li id="tutorials_menu"><a href="/{{LANGUAGE_CODE}}/tutorials/?page=1" class="tutorials">{% trans "Tutorials" %}</a></li>
@@ -106,6 +120,18 @@
       <h1>{% trans "Table of Contents" %}</h1>
 
       {% toc %}
+
+      <h1 class="visible-title">{% trans "Localizations" %}:</h1>
+      <ul>
+        {% if localizations %}
+          {% for l in localizations %}
+          <li><a href="{{ l.path }}">{{ l.lang }}</a></li>
+          {% endfor %}
+          <li><a href="https://github.com/html5rocks/www.html5rocks.com/blob/master/CONTRIBUTING.md">Contribute another</a></li>
+        {% else %}
+          <li><a href="https://github.com/html5rocks/www.html5rocks.com/blob/master/CONTRIBUTING.md">Contribute one</a></li>
+        {% endif %}
+      </ul>
     </nav>
     {% endif %}
   </header>
@@ -133,12 +159,14 @@
 
     function toggle(target, forceActive) {
 
-      // Switch off whichever one is not the
-      // current target
-      if (target === toc)
-        siteNav.classList.remove('active');
-      else
-        toc.classList.remove('active');
+      if (typeof toc !== 'undefined') {
+        // Switch off whichever one is not the
+        // current target
+        if (target === toc)
+          siteNav.classList.remove('active');
+        else
+          toc.classList.remove('active');
+      }
 
       // Toggle if no force parameter is set
       if (typeof forceActive === 'undefined') {

@@ -307,6 +307,7 @@ class ContentHandler(webapp2.RequestHandler):
     # Which CSS should this use? (Will get overwritten.)
     css_file = 'base'
     page_class = None
+    include_home_link = True
 
     # Setup handling of redirected article URLs: If a user tries to access an
     # article from a non-supported language, we'll redirect them to the
@@ -340,7 +341,12 @@ class ContentHandler(webapp2.RequestHandler):
                                permanent=True)
 
       if (relpath == ''):
+        include_home_link = None
         css_file = 'v2-combined'
+
+      if (relpath == 'tutorials/'):
+        css_file = 'v2-combined'
+        page_class = 'article tutorial listing'
 
       path = os.path.join('content', relpath, 'index.html')
     else:
@@ -354,6 +360,7 @@ class ContentHandler(webapp2.RequestHandler):
       for p in profiles:
         p['tuts_by_author'] = models.Resource.get_tutorials_by_author(p['id'])
       return self.render(data={
+            'include_home_link': include_home_link,
             'page_class': page_class,
             'css_file': css_file,
             'sorted_profiles': profiles
@@ -430,9 +437,11 @@ class ContentHandler(webapp2.RequestHandler):
           loc = os.path.basename(os.path.dirname(d))
           if loc not in [locale, 'static']:
             loc_list.append({'path': '/%s/%s' % (loc, relpath),
-                             'lang': langs[loc]})
+                             'lang': langs[loc],
+                             'loc': loc})
 
         data = {
+          'include_home_link': include_home_link,
           'page_class': page_class,
           'css_file': css_file,
           'tut': tut,
@@ -517,6 +526,7 @@ class ContentHandler(webapp2.RequestHandler):
       authors = author_dict.values()
 
       data = {
+        'include_home_link': include_home_link,
         'page_class': page_class,
         'css_file': css_file,
         'tutorials': tutorials,
@@ -553,6 +563,7 @@ class ContentHandler(webapp2.RequestHandler):
           r.url = "/%s%s" % (self.locale, r.url)
 
       data = {
+        'include_home_link': include_home_link,
         'page_title': page_title,
         'page_class': page_class,
         'css_file': css_file,
