@@ -9,3 +9,5 @@
 [![HTML5Rocks Screenshot](https://github.com/html5rocks/www.html5rocks.com/raw/master/static/images/screenshots/landing_page.png)](http://www.html5rocks.com)
 
 *HTML5Rocks는 [Google](https://github.com/google)에서 서비스되고 있습니다.*
+
+[![Analytics](https://ga-beacon.appspot.com/UA-40929587-3/www.html5rocks.com/README.md)](https://github.com/cwdoh/www.html5rocks.com/)
