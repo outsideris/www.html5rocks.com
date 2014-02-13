@@ -3,7 +3,11 @@
 #
 LANGUAGES=en de fr ja pt ru zh es ko
 MAC_DJANGO_ROOT=/Applications/GoogleAppEngineLauncher.app/Contents/Resources/GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/lib/django-1.2
+<<<<<<< HEAD
 LINUX_DJANGO_ROOT=/usr/local/google/google_appengine/lib/django_1_2
+=======
+LINUX_DJANGO_ROOT=/usr/local/google/google_appengine/lib/django-1.2
+>>>>>>> 612808eca422ef6d68fcfb21d6853a8e035371b5
 IMPORT_ROOT=~/git/html5/google3/blaze-genfiles/devrel/html5rocks/po_files/server/tc_dump
 ifeq "$(shell uname)" "Darwin"
 	DJANGO_ROOT=$(MAC_DJANGO_ROOT)
